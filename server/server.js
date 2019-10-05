@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const companyRoutes = require("./controllers/companies");
 const fs = require("fs");
-const { exec } = require("child_process");
+const { spawn } = require("child_process");
 
 const app = express();
 const port = 3000;
@@ -17,15 +17,20 @@ app.use(
 );
 app.use(express.static("build"));
 
-app.get("/companies", (req, res) => {
-  const company = req.body.company;
-  exec("python test.py", (err, stdout, stderr) => {
-    if (err) {
-      res.send("bad file");
-      return;
-    }
+// run a python script, takes a file name as a parameter
+function runScript(file) {
+  return spawn("python", ["-u", path.join(__dirname, file)]);
+}
 
-    res.send(stdout);
+app.get("/companies", (req, res) => {
+  // run a python script
+  const subprocess = runScript("test.py");
+
+  var outputData = null;
+
+  // send the data from the standard output of the python script
+  subprocess.stdout.on("data", data => {
+    res.send(data);
   });
 });
 
