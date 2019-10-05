@@ -107,15 +107,26 @@ def investment(ticker):
 		st_debt = float(BS_financials[0].get("Short-term debt"))
 		total_assets = float(BS_financials[0].get("Total assets"))
 
-		st_ratio = (st_debt/total_assets) * 100
-		st_ratio_rounded = str(round(st_ratio, 2)) + "%"
+		st_debt_ratio = (st_debt/total_assets)
+		st_debt_ratio_rounded = str(round(st_debt_ratio, 2))
+
+		if st_debt_ratio <= 1:
+			st_debt_question = "True"
+		else:
+			st_debt_question = "False"
+
 
 		#Current Ratio
 		current_assets = float(BS_financials[0].get("Total current assets"))
 		current_liabilities = float(BS_financials[0].get("Total current liabilities"))
 
-		current_ratio = (current_assets/current_liabilities) * 100
-		current_ratio_rounded = str(round(current_ratio, 2)) + "%"
+		current_ratio = (current_assets/current_liabilities)
+		current_ratio_rounded = str(round(current_ratio, 2))
+
+		if current_ratio >= 1:
+			current_ratio_question = "True"
+		else:
+			current_ratio_question = "False"
 
 		#Capital Acquisition Ratio
 		#divide cash flow from ops by CAPEX
@@ -142,6 +153,13 @@ def investment(ticker):
 
 		#Create a JSON file with all the relevant data
 		investment_json = {}
+
+
+		investment_json["Short-Term Debt Ratio"] = st_debt_ratio_rounded
+		investment_json["Short-Term Debt Question"] = st_debt_question
+
+		investment_json["Current Ratio"] = current_ratio_rounded
+		investment_json["Current Ratio Question"] = current_ratio_question
 
 		investment_json["Capital Acquisition Ratio"] = cap_acq_rounded
 		investment_json["Capital Acquisition Question"] = cap_acq_question
