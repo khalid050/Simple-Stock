@@ -66,15 +66,13 @@ def investment(ticker):
 		#Try getting the CAGR for eight years, if not available, then five, if not, three
 		IS_length = len(IS_financials)
 		last_revenue = float(IS_financials[0].get("Revenue"))
-		if IS_length >= 8:
-			first_revenue = float(IS_financials[7].get("Revenue"))
-			year_count = 7
-		elif IS_length >= 5:
+
+		if IS_length >= 5:
 			first_revenue = float(IS_financials[4].get("Revenue"))
 			year_count = 4
-		elif IS_length >= 3:
-			first_revenue = float(IS_financials[2].get("Revenue"))
-			year_count = 2
+		else:
+			first_revenue = float(IS_financials[CF_length - 1].get("Revenue"))
+			year_count = CF_length
 
 		CAGR_Revenue = (((last_revenue/first_revenue) ** (1/year_count)) - 1) * 100
 		CAGR_Revenue_rounded = str(round(CAGR_Revenue, 2)) + "%"
@@ -84,20 +82,15 @@ def investment(ticker):
 		last_capex = float(CF_financials[0].get("Capital Expenditure"))
 		last_dividends = float(CF_financials[0].get("Dividend payments"))
 
-		if CF_length >= 8:
-			first_capex = float(CF_financials[7].get("Capital Expenditure"))
-			first_dividends = float(CF_financials[7].get("Dividend payments"))
-			year_count = 7
-		elif CF_length >= 5:
+		if CF_length >= 5:
 			first_capex = float(CF_financials[4].get("Capital Expenditure"))
 			first_dividends = float(CF_financials[4].get("Dividend payments"))
 			year_count = 4
-		elif CF_length >= 3:
-			first_capex = float(CF_financials[2].get("Capital Expenditure"))
-			first_dividends = float(CF_financials[2].get("Dividend payments"))
-			year_count = 2
-		print(last_dividends)
-		print(first_dividends)
+		else:
+			first_capex = float(CF_financials[CF_length - 1].get("Capital Expenditure"))
+			first_dividends = float(CF_financials[CF_length - 1].get("Dividend payments"))
+			year_count = CF_length
+
 
 		#CAGR Dividends
 		CAGR_Dividends = (((last_dividends/first_dividends) ** (1/year_count)) - 1) * 100
@@ -109,6 +102,8 @@ def investment(ticker):
 		return(CAGR_Dividends_rounded, CAGR_Capex_rounded)
 
 		#Short-Term Debt Ratio
+        #Grab short term debt and total assets for the latest year
+
 
 		#Current Ratio
 
