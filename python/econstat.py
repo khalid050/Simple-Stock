@@ -74,8 +74,15 @@ def investment(ticker):
 			first_net_income = float(IS_financials[CF_length - 1].get("Net Income"))
 			year_count = CF_length
 
-		CAGR_Revenue = (((last_revenue/first_revenue) ** (1/year_count)) - 1) * 100
-		CAGR_Revenue_rounded = str(round(CAGR_Revenue, 2)) + "%"
+		CAGR_Revenue = (((last_revenue/first_revenue) ** (1/year_count)))
+		CAGR_Revenue_rounded = str(round(CAGR_Revenue, 2))
+
+		if CAGR_Revenue >= 1:
+			CAGR_Revenue_question = "True"
+		else:
+			CAGR_Revenue_question = "False"
+
+
 
 		#CAGR CAPEX
 		CF_length = len(CF_financials)
@@ -93,11 +100,24 @@ def investment(ticker):
 			year_count = CF_length
 
 		#CAGR Dividends
-		CAGR_Dividends = (((last_dividends/first_dividends) ** (1/year_count)) - 1) * 100
-		CAGR_Dividends_rounded = str(round(CAGR_Dividends, 2)) + "%"
+		CAGR_Dividends = (((last_dividends/first_dividends) ** (1/year_count)))
+		CAGR_Dividends_rounded = str(round(CAGR_Dividends, 2))
+
+		if CAGR_Dividends >= 0:
+			CAGR_Dividends_question = "True"
+		else:
+			CAGR_Dividends_question = "False"
+
 		#CAGR CAPEX
-		CAGR_Capex = (((last_capex/first_capex) ** (1/year_count)) - 1) * 100
-		CAGR_Capex_rounded = str(round(CAGR_Capex, 2)) + "%"
+		CAGR_Capex = (((last_capex/first_capex) ** (1/year_count)))
+		CAGR_Capex_rounded = str(round(CAGR_Capex, 2))
+
+
+
+		if CAGR_Capex >= 1:
+			CAGR_Capex_question = "True"
+		else:
+			CAGR_Capex_question = "False"
 
 
 
@@ -149,11 +169,23 @@ def investment(ticker):
 		else:
 			income_quality_question = "False"
 
+		print(str(first_capex))
+		print(str(last_capex))
+		print(str(year_count))
+
 
 
 		#Create a JSON file with all the relevant data
 		investment_json = {}
 
+		investment_json["CAGR Revenue"] = CAGR_Revenue_rounded
+		investment_json["CAGR Revenue Question"] = CAGR_Revenue_question
+
+		investment_json["CAGR Dividends"] = CAGR_Dividends_rounded
+		investment_json["CAGR Dividends Question"] = CAGR_Dividends_question
+
+		investment_json["CAGR Capex"] = CAGR_Capex_rounded
+		investment_json["CAGR Capex Question"] = CAGR_Capex_question
 
 		investment_json["Short-Term Debt Ratio"] = st_debt_ratio_rounded
 		investment_json["Short-Term Debt Question"] = st_debt_question
