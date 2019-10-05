@@ -5,7 +5,6 @@ const cors = require("cors");
 const companyRoutes = require("./controllers/companies");
 const fs = require("fs");
 const { spawnSync } = require("child_process");
-const { exec } = require("child_process");
 
 const app = express();
 const port = 3000;
@@ -40,11 +39,6 @@ app.get("/companies", (req, res) => {
 
   // send the data from the standard output of the python script
   res.send(subprocess.stdout);
-
-  // exec(`python ${__dirname}/clTest.py 0`, (err, stdout, stderr) => {
-  //   if (err) res.send(stderr);
-  //   res.send(stdout);
-  // });
 });
 
 // catch all
