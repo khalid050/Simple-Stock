@@ -100,26 +100,28 @@ def investment(ticker):
 			year_count = CF_length
 
 		#CAGR Dividends
-		CAGR_Dividends = (((last_dividends/first_dividends) ** (1/year_count)))
-		CAGR_Dividends_rounded = str(round(CAGR_Dividends, 2))
+		try:
+			CAGR_Dividends = (((last_dividends/first_dividends) ** (1/year_count)))
+			CAGR_Dividends_rounded = str(round(CAGR_Dividends, 2))
 
-		if CAGR_Dividends >= 0:
-			CAGR_Dividends_question = "True"
-		else:
-			CAGR_Dividends_question = "False"
+			if CAGR_Dividends >= 0:
+				CAGR_Dividends_question = "True"
+			else:
+				CAGR_Dividends_question = "False"
+		except:
+			CAGR_Dividends_rounded = "None"
+			CAGR_Dividends_question = "None"
+
+
 
 		#CAGR CAPEX
 		CAGR_Capex = (((last_capex/first_capex) ** (1/year_count)))
 		CAGR_Capex_rounded = str(round(CAGR_Capex, 2))
 
-
-
 		if CAGR_Capex >= 1:
 			CAGR_Capex_question = "True"
 		else:
 			CAGR_Capex_question = "False"
-
-
 
 		#Short-Term Debt Ratio
 		#Grab short term debt and total assets for the latest year
@@ -134,7 +136,6 @@ def investment(ticker):
 			st_debt_question = "True"
 		else:
 			st_debt_question = "False"
-
 
 		#Current Ratio
 		current_assets = float(BS_financials[0].get("Total current assets"))
@@ -158,7 +159,6 @@ def investment(ticker):
 		else:
 			cap_acq_question = "False"
 
-
 		#Quality of Income Ratio
 		#divide operating cash flow by net income
 		income_quality = (last_ops_CF/last_net_income)
@@ -168,12 +168,6 @@ def investment(ticker):
 			income_quality_question = "True"
 		else:
 			income_quality_question = "False"
-
-		print(str(first_capex))
-		print(str(last_capex))
-		print(str(year_count))
-
-
 
 		#Create a JSON file with all the relevant data
 		investment_json = {}
@@ -199,8 +193,10 @@ def investment(ticker):
 		investment_json["Income Quality Ratio"] = income_quality_rounded
 		investment_json["Income Quality Question"] = income_quality_question
 
-
 		return(investment_json)
 
 if __name__ == '__main__':
-	print(investment("MSFT"))
+	print(investment("EL"))
+	print(investment("PG"))
+	print(investment("PVH"))
+	print(investment("GPS"))
