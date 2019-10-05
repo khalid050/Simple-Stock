@@ -3,9 +3,9 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const companyRoutes = require("./controllers/companies");
-
-// allow execution of synchronus commands
-const { execSync } = require("child_process");
+const fs = require("fs");
+const { spawnSync } = require("child_process");
+const { exec } = require("child_process");
 
 const app = express();
 const port = 3000;
@@ -18,7 +18,34 @@ app.use(
 );
 app.use(express.static("build"));
 
-app.get("/companies", companyRoutes.sendCompanyData);
+// run a python script, takes a file name as a parameter
+function runScript(file, args) {
+  // establish the tail of the python script call
+  tail = [path.join(__dirname, "../python", file)];
+
+  // add each argument to the tail
+  args.forEach(item => {
+    tail.push(item);
+  });
+
+  // run the python script
+  return spawnSync("python", tail);
+}
+
+app.get("/companies", (req, res) => {
+  // run a python script
+  const subprocess = runScript("clTest.py", [2]);
+
+  var outputData = null;
+
+  // send the data from the standard output of the python script
+  res.send(subprocess.stdout);
+
+  // exec(`python ${__dirname}/clTest.py 0`, (err, stdout, stderr) => {
+  //   if (err) res.send(stderr);
+  //   res.send(stdout);
+  // });
+});
 
 // catch all
 app.get("*", (req, res) => {
