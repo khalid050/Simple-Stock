@@ -1,6 +1,7 @@
-module.exports = {
-  sendCompanyData: (req, res) => {
-    const company = req.body.company;
-    res.send("title 9");
-  }
-};
+const express = require("express");
+const fs = require("fs");
+const { exec } = require("child_process");
+//
+// module.exports = {
+//   sendCompanyData:
+// };

@@ -3,9 +3,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const companyRoutes = require("./controllers/companies");
-
-// allow execution of synchronus commands
-const { execSync } = require("child_process");
+const fs = require("fs");
+const { exec } = require("child_process");
 
 const app = express();
 const port = 3000;
@@ -18,7 +17,17 @@ app.use(
 );
 app.use(express.static("build"));
 
-app.get("/companies", companyRoutes.sendCompanyData);
+app.get("/companies", (req, res) => {
+  const company = req.body.company;
+  exec("python test.py", (err, stdout, stderr) => {
+    if (err) {
+      res.send("bad file");
+      return;
+    }
+
+    res.send(stdout);
+  });
+});
 
 // catch all
 app.get("*", (req, res) => {
