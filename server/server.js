@@ -19,7 +19,7 @@ app.use(express.static("build"));
 
 // run a python script, takes a file name as a parameter
 function runScript(file) {
-  return spawn("python", ["-u", path.join(__dirname, file)]);
+  return spawn("python", ["-u", path.join(__dirname, "../python", file)]);
 }
 
 app.get("/companies", (req, res) => {
