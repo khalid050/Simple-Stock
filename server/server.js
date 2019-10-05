@@ -31,9 +31,12 @@ function runScript(file, args) {
   return spawnSync("python", tail);
 }
 
-app.get("/companies", (req, res) => {
+// run investment.py upon receiving a request
+app.get("/stock", (req, res) => {
+  const company = req.body.company;
+
   // run a python script
-  const subprocess = runScript("clTest.py", [2]);
+  const subprocess = runScript("investment.py", [company]);
 
   var outputData = null;
 
