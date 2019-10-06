@@ -1,3 +1,9 @@
+"""
+Name: Kennard Fung
+File: investment.py
+Date: 10/05/2019
+Description: get the big 7 stats for a company's stock
+"""
 import json
 import requests
 import sys
