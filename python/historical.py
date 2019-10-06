@@ -23,7 +23,7 @@ def historical_data(ticker, timeframe = '1Y'):
 	latest_day = int(latest_date[8:10])
 
 	#For testing purposes
-	timeframe = '3M'
+	#timeframe = '3M'
 
 	#Check if the request is a month or a year
 	if timeframe[-1] == 'Y':
@@ -52,11 +52,6 @@ def historical_data(ticker, timeframe = '1Y'):
 
 	date_found = False
 	specific_area = int()
-	# print(str(old_year))
-	# print(str(old_month_final))
-	# print(str(latest_day_final))
-	# print(str(old_year) + "-" + str(old_month_final) + "-" + str(latest_day_final))
-
 
 	while date_found == False:
 		for x in range(len(historical)):
@@ -69,8 +64,8 @@ def historical_data(ticker, timeframe = '1Y'):
 				continue
 
 		#If the old date does not exist, minus one to the latest day
-		#If the day > 31, add one to the old_month
-		#If the month > 12, add one to the old_year
+		#If the day < 1, minus one to the old_month
+		#If the month < 1, minus one to the old_year
 		#Go back up to the top
 		latest_day -= 1
 		if latest_day < 1:
@@ -89,10 +84,6 @@ def historical_data(ticker, timeframe = '1Y'):
 		else:
 			latest_day_final = latest_day
 
-
-
-	print(specific_area)
-	print(len(historical))
 	for x in range(specific_area, len(historical)):
 		historical_to_push.append(historical[x])
 
