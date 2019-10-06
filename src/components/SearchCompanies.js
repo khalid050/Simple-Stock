@@ -17,13 +17,15 @@ class SearchCompanies extends React.Component {
       currentYear: "one",
       dataPointsOne: [],
       dataPointsTwo: [],
-      dataPointsThree: []
+      dataPointsThree: [],
+      allCompanies: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSumbit = this.handleSumbit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange(event) {
     this.setState({ currentYear: event.target.value });
     console.log(this.state.currentYear);
@@ -53,7 +55,6 @@ class SearchCompanies extends React.Component {
         }
       })
       .then(res => {
-        console.log(res);
         this.setState({ inputValue: "" });
         this.setState({ one: [] });
         this.setState({ two: [] });
@@ -82,7 +83,7 @@ class SearchCompanies extends React.Component {
             ];
             prevState.dataPointsTwo = newState;
           });
-        })
+        });
         this.setState({ three: res[1]["3Y"] });
         this.state.three.forEach((arr, index) => {
           this.setState(prevState => {
@@ -92,18 +93,16 @@ class SearchCompanies extends React.Component {
             ];
             prevState.dataPointsThree = newState;
           });
-        })
+        });
         this.setState({ currentCompanyInfo: res[0] });
-        console.log(this.state.currentCompanyInfo)
+        console.log(this.state.currentCompanyInfo);
       });
-
-
   }
 
-  getDataPoints(){
-    if (this.state.currentYear == 'one') return this.state.dataPointsOne
-    if (this.state.currentYear == 'two') return this.state.dataPointsTwo
-    if (this.state.currentYear == 'three') return this.state.dataPointsThree
+  getDataPoints() {
+    if (this.state.currentYear == "one") return this.state.dataPointsOne;
+    if (this.state.currentYear == "two") return this.state.dataPointsTwo;
+    if (this.state.currentYear == "three") return this.state.dataPointsThree;
   }
 
   generateGraph() {
@@ -120,9 +119,9 @@ class SearchCompanies extends React.Component {
         prefix: "$"
       },
       axisX: {
-        title: `Year ${this.state.currentYear}`,
+        title: `${this.state.currentYear} year`,
         // prefix: "W",
-        interval: 20
+        interval: 35
       },
       data: [
         {
@@ -153,10 +152,26 @@ class SearchCompanies extends React.Component {
         </select>
         {this.generateGraph()}
         <div>
-            <ul>
-
-
-            </ul>
+          <ul>
+            {Object.keys(this.state.currentCompanyInfo).map(data => {
+              return (
+                <div key={data}>
+                  {this.state.currentCompanyInfo[data] == "True" && (
+                    <li>
+                      {data
+                        .split(" ")
+                        .slice(0, -1)
+                        .join(" ")}
+                    </li>
+                  )}
+                  <p>
+                    {this.state.currentCompanyInfo[data] == "True" &&
+                      this.state.currentCompanyInfo[data]}{" "}
+                  </p>
+                </div>
+              );
+            })}
+          </ul>
         </div>
       </div>
     );
