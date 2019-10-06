@@ -36,13 +36,13 @@ app.post("/investment", (req, res) => {
   const company = req.body.company;
   // get the stock data
   const stock = runScript("investment.py", [company]);
-  console.log(stock.stdout.toString());
+  console.log(stock.stdout);
 
   const history = runScript("historical.py", [company]);
-  console.log(history.stdout.toString());
+  console.log(history.stdout);
 
   // // send the data from the standard output of the python script
-  res.send([stock.stdout.toString(), history.stdout.toString()]);
+  res.send([JSON.parse(stock.stdout), JSON.parse(history.stdout)]);
 });
 
 // catch all
