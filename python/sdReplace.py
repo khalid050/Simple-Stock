@@ -2,4 +2,12 @@
 
 import sys
 
-print(sys.argv[1].replace("'", '"'))
+nav = ""
+
+for c in sys.argv[1]:
+    if c == "'":
+        nav += '"'
+    else:
+        nav += c
+
+print(nav)
