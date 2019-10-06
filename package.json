@@ -1,7 +1,7 @@
 {
-  "name": "financial-literacy",
+  "name": "simple-stock",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple way to understand stocks and personal finance.",
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,8 +9,8 @@
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development --open & nodemon server/server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Khalid Umar, Nathan Koike, Kennard Fung",
+  "license": "MIT",
   "dependencies": {
     "@babel/cli": "^7.6.2",
     "body-parser": "^1.19.0",
@@ -37,5 +37,18 @@
     "babel-loader": "^8.0.6",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khalid050/Simple-Stock.git"
+  },
+  "keywords": [
+    "finance",
+    "stocks",
+    "market"
+  ],
+  "bugs": {
+    "url": "https://github.com/khalid050/Simple-Stock/issues"
+  },
+  "homepage": "https://github.com/khalid050/Simple-Stock#readme"
 }
