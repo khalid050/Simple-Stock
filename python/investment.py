@@ -9,10 +9,6 @@ import requests
 import sys
 
 def investment(ticker):
-	# # Open the list of stocks
-	# stock_list = list(open("stock_symbol_file", 'r'))
-	# actual_stock_list = stock_list[0]
-
 	base_url = "https://financialmodelingprep.com/api/v3/financials/"
 
 	# collect data for balance cheet
