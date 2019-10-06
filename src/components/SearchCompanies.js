@@ -121,7 +121,7 @@ class SearchCompanies extends React.Component {
       axisX: {
         title: `${this.state.currentYear} year`,
         // prefix: "W",
-        interval: 35
+        interval: 50
       },
       data: [
         {
