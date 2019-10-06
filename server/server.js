@@ -36,10 +36,9 @@ app.post("/investment", (req, res) => {
   const company = req.body.company;
   // get the stock data
   const stock = runScript("investment.py", [company]);
-  console.log(stock.stdout);
 
+  // get historical stock data
   const history = runScript("historical.py", [company]);
-  console.log(history.stdout);
 
   // // send the data from the standard output of the python script
   res.send([JSON.parse(stock.stdout), JSON.parse(history.stdout)]);
