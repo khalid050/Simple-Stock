@@ -22,7 +22,7 @@ def historical_data(ticker, timeframe = '1Y'):
 	latest_day = int(latest_date[8:10])
 
 	#For testing purposes
-	timeframe = '6M'
+	timeframe = '3M'
 
 	#Check if the request is a month or a year
 	if timeframe[-1] == 'Y':
@@ -48,21 +48,43 @@ def historical_data(ticker, timeframe = '1Y'):
 
 	#If you tracked back into a public holiday/weekend, just use data from the next dictionary
 	historical_to_push = []
-	#print(str(old_year) + "-" + str(old_month) + "-" + str(latest_day))
 
 	date_found = False
 	specific_area = int()
-	print(str(old_year))
-	print(str(old_month_final))
-	print(str(latest_day_final))
-	print(str(old_year) + "-" + str(old_month_final) + "-" + str(latest_day_final))
+	# print(str(old_year))
+	# print(str(old_month_final))
+	# print(str(latest_day_final))
+	# print(str(old_year) + "-" + str(old_month_final) + "-" + str(latest_day_final))
 
 
-	for x in range(len(historical)):
-		if (str(old_year) + "-" + str(old_month_final) + "-" + str(latest_day_final)) == historical[x].get("date"):
-			print(historical[x].get("close"))
-			specific_area = x
-			break
+	while date_found == False:
+		for x in range(len(historical)):
+			print(x)
+			if (str(old_year) + "-" + str(old_month_final) + "-" + str(latest_day_final)) == historical[x].get("date"):
+				#print(historical[x].get("close"))
+				specific_area = x
+				break
+		#If the old date does not exist, minus one to the latest day
+		#If the day > 31, add one to the old_month
+		#If the month > 12, add one to the old_year
+		#Go back up to the top
+		latest_day -= 1
+		if latest_day < 1:
+			old_month = old_month - 1
+		if old_month < 1:
+			old_year = old_year - 1
+
+		#put a 0 in front of the month or the day if they are less than 10
+		if old_month < 10:
+			old_month_final = str("0") + str(old_month)
+		else:
+			old_month_final = old_month
+
+		if latest_day < 10:
+			latest_day_final = str("0") + str(latest_day)
+		else:
+			latest_day_final = latest_day
+
 
 	print(specific_area)
 	print(len(historical))
@@ -92,6 +114,6 @@ def historical_data(ticker, timeframe = '1Y'):
 			# 	else:
 			# 		latest_day_final = latest_day
 
-	return(historical_to_push)
+	return(historical_to_push, len(historical_to_push))
 
 print(historical_data("AAPL"))
