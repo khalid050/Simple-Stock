@@ -1,6 +1,6 @@
 import json
 import requests
-
+import sys
 
 def investment(ticker):
 	# Open the list of stocks
@@ -154,3 +154,10 @@ def investment(ticker):
 	investment_json["Income Quality Question"] = income_quality_question
 
 	return investment_json
+
+def main():
+	company = sys.argv[1]
+	print(investment(company))
+
+if __name__ =="__main__":
+	main()
