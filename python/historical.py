@@ -8,6 +8,7 @@ input in historical_data.
 """
 import json
 import requests
+import sys
 
 def historical_data(ticker, timeframe = '1Y'):
 	history_url = "https://financialmodelingprep.com/api/v3/historical-price-full/" + str(ticker) + "?serietype=line"
@@ -99,4 +100,9 @@ def historical_data(ticker, timeframe = '1Y'):
 
 	return(historical_to_push)
 
-print(historical_data("MSFT"))
+def main():
+	company = sys.argv[1]
+	print(historical_data(company))
+
+if __name__ =="__main__":
+	main()
