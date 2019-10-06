@@ -12,7 +12,8 @@ module.exports = {
     hot: true,
     port: 8080,
     proxy: {
-      "/": "http://localhost:3000"
+      "/": "http://localhost:3000",
+      "/investment": "http://localhost:3000"
     }
   },
   mode: process.env.NODE_ENV,

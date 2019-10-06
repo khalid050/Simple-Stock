@@ -24,6 +24,8 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-hot-loader": "^4.12.14",
+    "react-router-dom": "^5.1.2",
+    "react-select": "^3.0.8",
     "webpack-dev-server": "^3.8.2"
   },
   "devDependencies": {
