@@ -44,6 +44,9 @@ class SearchCompanies extends React.Component {
           throw new Error("error cannot get data");
         }
       })
+      .then(response => {
+        console.log(response);
+      })
       .catch(err => {
         console.log("there is an error", err);
       });

@@ -40,11 +40,11 @@ app.post("/investment", (req, res) => {
   const pfJSON = runScript("sdReplace.py", [subprocess.stdout]);
 
   // // send the data from the standard output of the python script
-  res.send(subprocess.stdout);
-  console.log(subprocess.stdout);
+  // res.send(subprocess.stdout);
+  // console.log(subprocess.stdout);
   // res.send(subprocess.stdout)
-  console.log(JSON.parse(pfJSON.stdout));
-  res.send(JSON.parse(pfJSON.stdout));
+  // console.log(JSON.parse(pfJSON.stdout));
+  res.send(pfJSON.stdout);
 });
 
 // run investment.py upon receiving a request
