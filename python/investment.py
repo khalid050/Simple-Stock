@@ -159,7 +159,9 @@ def investment(ticker):
 	investment_json["Income Quality Ratio"] = income_quality_rounded
 	investment_json["Income Quality Question"] = income_quality_question
 
-	return investment_json
+	investment_json = json.dumps(investment_json)
+
+	return(investment_json)
 
 def main():
 	company = sys.argv[1]
