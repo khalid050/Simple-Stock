@@ -40,11 +40,6 @@ app.post("/investment", (req, res) => {
 
   // // send the data from the standard output of the python script
   res.send(subprocess.stdout);
-<<<<<<< HEAD
-  console.log(subprocess.stdout);
-  // res.send(subprocess.stdout)
-=======
->>>>>>> c3503e07d6a0073f757b91fed2b6d87ba1af3d90
 });
 
 // run investment.py upon receiving a request
