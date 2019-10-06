@@ -156,7 +156,8 @@ class SearchCompanies extends React.Component {
             {Object.keys(this.state.currentCompanyInfo).map(data => {
               return (
                 <div key={data}>
-                  {this.state.currentCompanyInfo[data] == "True" && (
+                  {(this.state.currentCompanyInfo[data] == "True" ||
+                   this.state.currentCompanyInfo[data] == "False") && (
                     <li>
                       {data
                         .split(" ")
@@ -165,7 +166,8 @@ class SearchCompanies extends React.Component {
                     </li>
                   )}
                   <p>
-                    {this.state.currentCompanyInfo[data] == "True" &&
+                    {(this.state.currentCompanyInfo[data] == "True" ||
+                     this.state.currentCompanyInfo[data] == "False") &&
                       this.state.currentCompanyInfo[data]}{" "}
                   </p>
                 </div>
