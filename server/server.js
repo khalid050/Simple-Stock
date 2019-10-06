@@ -31,29 +31,17 @@ function runScript(file, args) {
   return spawnSync("python", tail);
 }
 
-// run investment.py upon receiving a request
+// run investment.py upon receiving a request for stock information
 app.post("/investment", (req, res) => {
   const company = req.body.company;
-  // run a python script
-  const subprocess = runScript("investment.py", [company]);
-  console.log(subprocess.stdout);
+  // get the stock data
+  const stock = runScript("investment.py", [company]);
+
+  // get historical stock data
+  const history = runScript("historical.py", [company]);
 
   // // send the data from the standard output of the python script
-  res.send(subprocess.stdout);
-  console.log(subprocess.stdout);
-  // res.send(subprocess.stdout)
-  // console.log(JSON.parse(pfJSON.stdout));
-});
-
-// run investment.py upon receiving a request
-app.get("/past", (req, res) => {
-  const company = req.body.company;
-
-  // run a python script
-  const subprocess = runScript("historical.py", [company]);
-
-  // send the data from the standard output of the python script
-  res.send(subprocess.stdout);
+  res.send([JSON.parse(stock.stdout), JSON.parse(history.stdout)]);
 });
 
 // catch all
