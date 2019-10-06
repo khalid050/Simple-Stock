@@ -38,7 +38,7 @@ app.post("/investment", (req, res) => {
   const subprocess = runScript("investment.py", [company]);
 
   // // send the data from the standard output of the python script
-  // res.send(subprocess.stdout)
+  res.send(subprocess.stdout);
   console.log(subprocess.stdout);
 });
 
