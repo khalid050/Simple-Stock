@@ -38,7 +38,16 @@ app.get("/stock", (req, res) => {
   // run a python script
   const subprocess = runScript("investment.py", [company]);
 
-  var outputData = null;
+  // send the data from the standard output of the python script
+  res.send(subprocess.stdout);
+});
+
+// run investment.py upon receiving a request
+app.get("/past", (req, res) => {
+  const company = req.body.company;
+
+  // run a python script
+  const subprocess = runScript("historical.py", [company]);
 
   // send the data from the standard output of the python script
   res.send(subprocess.stdout);
