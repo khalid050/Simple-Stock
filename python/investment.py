@@ -15,7 +15,7 @@ def investment(ticker):
 
 	# verify that stock ticker exists in the overall list
 	if ticker not in actual_stock_list:
-		return "Stock does not exist in this server!"
+		return '{"error": "Stock does not exist in this server!"}'
 
 	base_url = "https://financialmodelingprep.com/api/v3/financials/"
 
