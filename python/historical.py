@@ -11,6 +11,14 @@ import requests
 import sys
 
 def historical_data(ticker):
+	# verify that the stock exists
+	# this is copied from investment.py
+	base_url = "https://financialmodelingprep.com/api/v3/financials/"
+	balance_sheet_url = base_url + "balance-sheet-statement/" + str(ticker)
+	balance_sheet_json = requests.get(balance_sheet_url).json()
+	if not "financials" in balance_sheet_json:
+		return '{"error": "invalid stock ticker"}'
+
 	history_url = "https://financialmodelingprep.com/api/v3/historical-price-full/" + str(ticker) + "?serietype=line"
 	history_results = requests.get(history_url)
 	history_json = history_results.json()
