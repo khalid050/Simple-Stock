@@ -38,7 +38,6 @@ class SearchCompanies extends React.Component {
     })
       .then(data => {
         if (data.status === 200) {
-          console.log(data.json);
           return data.json;
         } else {
           throw new Error("error cannot get data");
