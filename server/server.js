@@ -44,6 +44,7 @@ app.post("/investment", (req, res) => {
   console.log(subprocess.stdout);
   // res.send(subprocess.stdout)
   console.log(JSON.parse(pfJSON.stdout));
+  res.send(JSON.parse(pfJSON.stdout));
 });
 
 // run investment.py upon receiving a request
