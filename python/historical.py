@@ -55,7 +55,6 @@ def historical_data(ticker, timeframe = '1Y'):
 
 	while date_found == False:
 		for x in range(len(historical)):
-			print(x)
 			if (str(old_year) + "-" + str(old_month_final) + "-" + str(latest_day_final)) == historical[x].get("date"):
 				specific_area = x
 				date_found = True
