@@ -32,14 +32,14 @@ function runScript(file, args) {
 }
 
 // run investment.py upon receiving a request
-app.get("/stock", (req, res) => {
+app.post("/investment", (req, res) => {
   const company = req.body.company;
-
   // run a python script
   const subprocess = runScript("investment.py", [company]);
 
-  // send the data from the standard output of the python script
-  res.send(subprocess.stdout);
+  // // send the data from the standard output of the python script
+  // res.send(subprocess.stdout)
+  console.log(subprocess.stdout);
 });
 
 // run investment.py upon receiving a request
