@@ -13,9 +13,11 @@ class SearchCompanies extends React.Component {
       one: [],
       two: [],
       three: [],
-      currentCompanyInfo: [],
-      currentYear: 1,
-      dataPoints: []
+      currentCompanyInfo: {},
+      currentYear: "one",
+      dataPointsOne: [],
+      dataPointsTwo: [],
+      dataPointsThree: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -52,28 +54,58 @@ class SearchCompanies extends React.Component {
       })
       .then(res => {
         console.log(res);
-        this.setState({ inputValu: "" });
+        this.setState({ inputValue: "" });
         this.setState({ one: [] });
         this.setState({ two: [] });
         this.setState({ three: [] });
-        this.setState({ dataPoints: [] });
+        this.setState({ dataPointsOne: [] });
+        this.setState({ dataPointsTwo: [] });
+        this.setState({ dataPointsThree: [] });
 
-        this.setState({ currentCompanyInfo: res[0] });
         this.setState({ one: res[1]["1Y"] });
         this.state.one.forEach((arr, index) => {
           this.setState(prevState => {
             let newState = [
-              ...prevState.dataPoints,
+              ...prevState.dataPointsOne,
               { x: index, y: arr["close"] }
             ];
-            prevState.dataPoints = newState;
+            prevState.dataPointsOne = newState;
           });
         });
+
         this.setState({ two: res[1]["2Y"] });
+        this.state.two.forEach((arr, index) => {
+          this.setState(prevState => {
+            let newState = [
+              ...prevState.dataPointsTwo,
+              { x: index, y: arr["close"] }
+            ];
+            prevState.dataPointsTwo = newState;
+          });
+        })
         this.setState({ three: res[1]["3Y"] });
-        console.log(this.state.dataPoints);
+        this.state.three.forEach((arr, index) => {
+          this.setState(prevState => {
+            let newState = [
+              ...prevState.dataPointsThree,
+              { x: index, y: arr["close"] }
+            ];
+            prevState.dataPointsThree = newState;
+          });
+        })
+        this.setState({ currentCompanyInfo: res[0] });
+        console.log(this.state.currentCompanyInfo)
       });
+
+
   }
+
+  getDataPoints(){
+    if (this.state.currentYear == 'one') return this.state.dataPointsOne
+    if (this.state.currentYear == 'two') return this.state.dataPointsTwo
+    if (this.state.currentYear == 'three') return this.state.dataPointsThree
+  }
+
   generateGraph() {
     const options = {
       animationEnabled: true,
@@ -85,7 +117,7 @@ class SearchCompanies extends React.Component {
       axisY: {
         title: "Closing Price",
         includeZero: false,
-        suffix: "%"
+        prefix: "$"
       },
       axisX: {
         title: `Year ${this.state.currentYear}`,
@@ -95,8 +127,8 @@ class SearchCompanies extends React.Component {
       data: [
         {
           type: "line",
-          // toolTipContent: "Week {x}: {y}%",
-          dataPoints: this.state.dataPoints
+
+          dataPoints: this.getDataPoints()
         }
       ]
     };
@@ -115,11 +147,17 @@ class SearchCompanies extends React.Component {
           <button type="submit">Submit</button>
         </form>
         <select onChange={this.handleChange}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+          <option value="one">one</option>
+          <option value="two">two</option>
+          <option value="three">three</option>
         </select>
         {this.generateGraph()}
+        <div>
+            <ul>
+
+
+            </ul>
+        </div>
       </div>
     );
   }
