@@ -36,8 +36,7 @@ app.post("/investment", (req, res) => {
   const company = req.body.company;
   // run a python script
   const subprocess = runScript("investment.py", [company]);
-  // convert the json string to the proper format
-  const pfJSON = runScript("sdReplace.py", [subprocess.stdout]);
+  console.log(subprocess.stdout);
 
   // // send the data from the standard output of the python script
   res.send(subprocess.stdout);

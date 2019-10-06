@@ -9,19 +9,19 @@ import requests
 import sys
 
 def investment(ticker):
-	# Open the list of stocks
-	stock_list = list(open("stock_symbol_file", 'r'))
-	actual_stock_list = stock_list[0]
-
-	# verify that stock ticker exists in the overall list
-	if ticker not in actual_stock_list:
-		return '{"error": "Stock does not exist in this server!"}'
+	# # Open the list of stocks
+	# stock_list = list(open("stock_symbol_file", 'r'))
+	# actual_stock_list = stock_list[0]
 
 	base_url = "https://financialmodelingprep.com/api/v3/financials/"
 
 	# collect data for balance cheet
 	balance_sheet_url = base_url + "balance-sheet-statement/" + str(ticker)
 	balance_sheet_json = requests.get(balance_sheet_url).json()
+
+	# verify that the stock exists
+	if not "financials" in balance_sheet_json:
+		return '{"error": "invalid stock ticker"}'
 
 	# collect data for cash flow
 	cash_flow_url = base_url + "cash-flow-statement/" + str(ticker)
@@ -159,10 +159,12 @@ def investment(ticker):
 	investment_json["Income Quality Ratio"] = income_quality_rounded
 	investment_json["Income Quality Question"] = income_quality_question
 
-	return investment_json
+	investment_json = json.dumps(investment_json)
+
+	return(investment_json)
 
 def main():
-	company = sys.argv[1]
+	company = sys.argv[1].upper()
 	print(investment(company))
 
 if __name__ =="__main__":
