@@ -22,7 +22,7 @@ Type in the stock symbol of a company of interest, for example, Take-Two Interac
 
 Ken Data Analytics-Python
 Nathan Backend-Node
-Khalid Frondend-React
+Khalid Frontend-React
 
 ## What's next!
 
