@@ -11,22 +11,28 @@ With time, market information has become more symmetrical, but this information 
 Overall, Simple-Stock strives to provide a balance between too-much and too-little information. We respect people's time, and we respect that they have better things to do. So we give them information that they understand and can act upon on quickly.
 
 ## Running the Web Application
+
 Clone the Simple-Stock folder. Cd into it. npm run dev.
 
 ## What it does
+
 Type in the stock symbol of a company of interest, for example, Take-Two Interactive (TTWO) or Proctor & Gamble (PG). The program will output a historical chart of prices, which the user can toggle through (1-year, 2-year, 3-year history). Additionally, there are valuation seven metrics that appear, with a "True" or "False" rating. Generally and relatively, true is good, false is bad. The plain english explanations are available on the read-me at the moment
 
 ## How we built it
-Nathan and Khalid worked on the frontend: React, node JS and HTML. 
-Ken worked on the backend: Python.
+
+Ken Data Analytics-Python
+Nathan Backend-Node
+Khalid Frondend-React
 
 ## What's next!
+
 Improving the appearance of the overall UI.
 Adding sector-specific information and averages to make the stock indicators more relevant.
 Adding more features like bond and forex investing metrics.
 Adding other financial literacy features like debt, inflation and wealth growth visualization charts.
 
 ## Plain English Stock Indicator Explanations
+
 CAGR: Compounded Annual Growth Rate. Better than average growth rate, especially when growth moves up and down
 a lot throughout the years.
 
