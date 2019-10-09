@@ -28,13 +28,11 @@ class SearchCompanies extends React.Component {
 
   handleChange(event) {
     this.setState({ currentYear: event.target.value });
-    console.log(this.state.currentYear);
   }
 
   handleInputChange(event) {
     event.preventDefault();
     this.setState({ inputValue: event.target.value });
-    console.log(this.state.inputValue);
   }
 
   handleSumbit(event) {
@@ -45,7 +43,7 @@ class SearchCompanies extends React.Component {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ company: this.state.inputValue })
+      body: JSON.stringify(body)
     })
       .then(data => {
         if (data.status === 200) {
@@ -95,7 +93,6 @@ class SearchCompanies extends React.Component {
           });
         });
         this.setState({ currentCompanyInfo: res[0] });
-        console.log(this.state.currentCompanyInfo);
       });
   }
 
@@ -157,7 +154,7 @@ class SearchCompanies extends React.Component {
               return (
                 <div key={data}>
                   {(this.state.currentCompanyInfo[data] == "True" ||
-                   this.state.currentCompanyInfo[data] == "False") && (
+                    this.state.currentCompanyInfo[data] == "False") && (
                     <li>
                       {data
                         .split(" ")
@@ -167,7 +164,7 @@ class SearchCompanies extends React.Component {
                   )}
                   <p>
                     {(this.state.currentCompanyInfo[data] == "True" ||
-                     this.state.currentCompanyInfo[data] == "False") &&
+                      this.state.currentCompanyInfo[data] == "False") &&
                       this.state.currentCompanyInfo[data]}{" "}
                   </p>
                 </div>
