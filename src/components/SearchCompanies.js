@@ -1,5 +1,4 @@
 import React from "react";
-import Select from "react-select";
 import companyData from "./company_info";
 import CanvasJSReact from "./canvasjs/canvasjs.react";
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -117,7 +116,6 @@ class SearchCompanies extends React.Component {
       },
       axisX: {
         title: `${this.state.currentYear} year`,
-        // prefix: "W",
         interval: 50
       },
       data: [
@@ -135,11 +133,14 @@ class SearchCompanies extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSumbit}>
-          <input
-            type="text"
-            onChange={this.handleInputChange}
+          <select
             value={this.state.inputValue}
-          ></input>
+            onChange={this.handleInputChange}
+          >
+            {companyData["symbolsList"].map((company, index) => {
+              return <option key={index}>{company.symbol}</option>;
+            })}
+          </select>
           <button type="submit">Submit</button>
         </form>
         <select onChange={this.handleChange}>
