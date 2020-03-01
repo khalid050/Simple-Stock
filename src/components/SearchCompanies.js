@@ -46,12 +46,13 @@ class SearchCompanies extends React.Component {
     })
       .then(data => {
         if (data.status === 200) {
-          return data.json();
+          return data.clone().json();
         } else {
           throw new Error("error cannot get data");
         }
       })
       .then(res => {
+        if (res[0]["error"]) return;
         this.setState({ inputValue: "" });
         this.setState({ one: [] });
         this.setState({ two: [] });
@@ -59,7 +60,6 @@ class SearchCompanies extends React.Component {
         this.setState({ dataPointsOne: [] });
         this.setState({ dataPointsTwo: [] });
         this.setState({ dataPointsThree: [] });
-
         this.setState({ one: res[1]["1Y"] });
         this.state.one.forEach((arr, index) => {
           this.setState(prevState => {
@@ -96,9 +96,9 @@ class SearchCompanies extends React.Component {
   }
 
   getDataPoints() {
-    if (this.state.currentYear == "one") return this.state.dataPointsOne;
-    if (this.state.currentYear == "two") return this.state.dataPointsTwo;
-    if (this.state.currentYear == "three") return this.state.dataPointsThree;
+    if (this.state.currentYear === "one") return this.state.dataPointsOne;
+    if (this.state.currentYear === "two") return this.state.dataPointsTwo;
+    if (this.state.currentYear === "three") return this.state.dataPointsThree;
   }
 
   generateGraph() {
@@ -154,8 +154,8 @@ class SearchCompanies extends React.Component {
             {Object.keys(this.state.currentCompanyInfo).map(data => {
               return (
                 <div key={data}>
-                  {(this.state.currentCompanyInfo[data] == "True" ||
-                    this.state.currentCompanyInfo[data] == "False") && (
+                  {(this.state.currentCompanyInfo[data] === "True" ||
+                    this.state.currentCompanyInfo[data] === "False") && (
                     <li>
                       {data
                         .split(" ")
