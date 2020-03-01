@@ -44,7 +44,6 @@ app.post("/investment", (req, res) => {
   const company = req.body.company;
   client.get(company, (err, response) => {
     if (response) {
-      console.log(response);
       res.send(JSON.parse(response));
     } else {
       const stock = runScript("investment.py", [company]);
